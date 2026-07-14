@@ -39,7 +39,9 @@ export default function LoginView({ onLogin, error, setError }) {
       {/* Left: branding + photos */}
       <section className="login-hero">
         <div className="login-brand">
-          <img src="/images/shelflife-logo.svg" alt="" className="login-logo" />
+          <span className="login-logo" aria-hidden="true">
+            S
+          </span>
           <div>
             <span className="login-brand-name">ShelfLife</span>
             <p className="login-brand-tagline">Fresh tracking, less waste</p>

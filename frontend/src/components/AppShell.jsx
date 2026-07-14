@@ -24,7 +24,9 @@ export default function AppShell({
     <div className="app-shell">
       <header className="topbar">
         <button type="button" className="brand-lockup" onClick={() => onNavigate('dashboard')}>
-          <img src="/images/shelflife-logo.svg" alt="ShelfLife" className="brand-logo" />
+          <span className="brand-logo" aria-hidden="true">
+            S
+          </span>
           <div className="brand-text">
             <strong>ShelfLife</strong>
             <span>Fresh tracking, less waste</span>
