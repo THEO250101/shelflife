@@ -183,7 +183,9 @@ Deploy to any Node.js host (Render, Railway, Fly.io, DigitalOcean, etc.) that su
 
 ## Screenshots
 
-Screenshots will be added after the app is run locally and visually checked. Place screenshots in `docs/images/` and reference them here.
+![ShelfLife dashboard screenshot](docs/images/shelflife-dashboard.png)
+
+The screenshot above shows the signed-in dashboard with live seeded stats, the guided workflow panel, and clickable food-photo cards.
 
 ## Visual Assets
 
