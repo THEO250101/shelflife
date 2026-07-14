@@ -1,0 +1,91 @@
+.recipe-match-grid {
+  display: grid;
+  gap: 8px;
+  max-height: 270px;
+  overflow-y: auto;
+  margin-bottom: 16px;
+  padding-right: 4px;
+}
+
+.recipe-match-card {
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-soft);
+  border: 1px solid var(--line);
+  transition: border-color var(--transition);
+}
+.recipe-match-card:hover {
+  border-color: var(--line-strong);
+}
+
+.match-score-badge {
+  min-height: 50px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  border-radius: var(--radius-sm);
+  color: #0f1410;
+  background: var(--accent);
+  font-weight: 800;
+  text-align: center;
+}
+
+.match-score-badge strong {
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+.match-score-badge span {
+  font-size: 0.6rem;
+  opacity: 0.72;
+  display: block;
+}
+
+.recipe-match-card h3,
+.recipe-match-card p {
+  margin: 0;
+}
+
+.recipe-match-card p {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.match-ingredients {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 6px;
+}
+
+.match-ingredients span {
+  min-height: 22px;
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 7px;
+  border-radius: var(--radius-pill);
+  color: #6ee890;
+  background: var(--good-soft);
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.match-ingredient--missing {
+  color: var(--warning) !important;
+  background: var(--warning-soft) !important;
+}
+
+@media (max-width: 760px) {
+  .recipe-match-card {
+    grid-template-columns: 1fr;
+  }
+  .match-score-badge {
+    width: 100%;
+    min-height: 44px;
+  }
+}

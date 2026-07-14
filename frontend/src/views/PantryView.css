@@ -1,0 +1,18 @@
+.search-input {
+  flex: 1;
+  min-width: 180px;
+}
+
+.item-row--active {
+  border-color: var(--accent) !important;
+  background: var(--accent-soft) !important;
+}
+
+@media (max-width: 640px) {
+  .toolbar {
+    flex-direction: column;
+  }
+  .search-input {
+    min-width: 100%;
+  }
+}

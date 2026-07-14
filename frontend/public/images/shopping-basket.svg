@@ -1,0 +1,19 @@
+<svg width="720" height="560" viewBox="0 0 720 560" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Grocery basket</title>
+  <desc id="desc">A grocery basket with lemons, greens, and a checked shopping card.</desc>
+  <rect width="720" height="560" rx="36" fill="#F5F8F2"/>
+  <path d="M180 230H540L502 446H218L180 230Z" fill="#D97949"/>
+  <path d="M222 230C232 154 488 154 498 230" stroke="#1F5F3D" stroke-width="22" stroke-linecap="round"/>
+  <path d="M220 292H502" stroke="#F4C3A7" stroke-width="16" stroke-linecap="round"/>
+  <path d="M232 354H490" stroke="#F4C3A7" stroke-width="16" stroke-linecap="round"/>
+  <circle cx="292" cy="192" r="34" fill="#E9D063"/>
+  <circle cx="354" cy="184" r="34" fill="#E9D063"/>
+  <path d="M420 186C452 144 508 164 512 220C468 224 432 215 420 186Z" fill="#3F9159"/>
+  <path d="M396 194C410 144 466 130 492 176C457 199 423 207 396 194Z" fill="#65AD73"/>
+  <rect x="78" y="96" width="188" height="112" rx="24" fill="#FFFFFF"/>
+  <path d="M110 136L142 166L214 124" stroke="#237849" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M110 188H224" stroke="#D5E2D2" stroke-width="10" stroke-linecap="round"/>
+  <rect x="474" y="342" width="120" height="90" rx="22" fill="#FFFFFF"/>
+  <path d="M502 386H568" stroke="#237849" stroke-width="10" stroke-linecap="round"/>
+  <path d="M502 410H548" stroke="#D5E2D2" stroke-width="9" stroke-linecap="round"/>
+</svg>

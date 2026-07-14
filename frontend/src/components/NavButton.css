@@ -1,0 +1,41 @@
+.nav-button {
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  padding: 6px 12px;
+  background: transparent;
+  color: var(--muted);
+  text-align: center;
+  font: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition);
+}
+
+.nav-emoji {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.nav-label {
+  font-weight: 700;
+  font-size: 0.86rem;
+}
+
+.nav-button:hover,
+.nav-button:focus-visible {
+  background: var(--surface-soft);
+  border-color: var(--line);
+  color: var(--text);
+  outline: none;
+}
+
+.nav-button.active {
+  background: var(--accent-soft);
+  border-color: rgba(242, 201, 76, 0.22);
+  color: var(--accent);
+  box-shadow: 0 0 12px var(--accent-glow);
+}

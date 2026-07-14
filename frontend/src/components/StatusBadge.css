@@ -1,0 +1,47 @@
+.status-badge {
+  display: inline-flex;
+  min-height: 24px;
+  align-items: center;
+  border-radius: var(--radius-pill);
+  padding: 3px 9px;
+  color: var(--text-dim);
+  background: var(--surface-soft);
+  font-size: 0.72rem;
+  font-weight: 800;
+  white-space: nowrap;
+  border: 1px solid var(--line);
+  letter-spacing: 0.02em;
+}
+
+.status-badge.use-soon {
+  color: #fbbf88;
+  background: var(--warning-soft);
+  border-color: rgba(245, 158, 75, 0.25);
+}
+
+.status-badge.expired,
+.status-badge.discarded {
+  color: #f4a4a4;
+  background: var(--danger-soft);
+  border-color: rgba(248, 113, 113, 0.22);
+}
+
+.status-badge.fresh,
+.status-badge.rescued,
+.status-badge.cooked {
+  color: #6ee890;
+  background: var(--good-soft);
+  border-color: rgba(74, 222, 128, 0.22);
+}
+
+.status-badge.planned {
+  color: #8bd4ef;
+  background: var(--info-soft);
+  border-color: rgba(96, 192, 224, 0.22);
+}
+
+.status-badge.used {
+  color: #8bd4ef;
+  background: var(--info-soft);
+  border-color: rgba(96, 192, 224, 0.22);
+}

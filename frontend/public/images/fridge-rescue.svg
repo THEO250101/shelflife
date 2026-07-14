@@ -1,0 +1,22 @@
+<svg width="720" height="560" viewBox="0 0 720 560" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Open fridge with fresh food</title>
+  <desc id="desc">A calm kitchen fridge illustration with produce, milk, eggs, and a rescue note.</desc>
+  <rect width="720" height="560" rx="36" fill="#F4F8F1"/>
+  <rect x="90" y="58" width="360" height="444" rx="30" fill="#DDEBDC"/>
+  <rect x="118" y="92" width="304" height="376" rx="22" fill="#FFFFFF"/>
+  <path d="M270 92V468" stroke="#C7D8C7" stroke-width="8"/>
+  <rect x="144" y="130" width="96" height="72" rx="14" fill="#F3D0BF"/>
+  <rect x="302" y="130" width="78" height="96" rx="18" fill="#D7EED9"/>
+  <rect x="146" y="250" width="94" height="28" rx="14" fill="#C5E2C7"/>
+  <rect x="146" y="292" width="94" height="28" rx="14" fill="#E6DCA8"/>
+  <rect x="302" y="258" width="82" height="116" rx="18" fill="#F8F4E5"/>
+  <circle cx="172" cy="166" r="18" fill="#C95F3C"/>
+  <circle cx="212" cy="166" r="18" fill="#D87B45"/>
+  <circle cx="337" cy="178" r="28" fill="#3D8D57"/>
+  <path d="M324 162C338 138 359 145 360 169" stroke="#226A43" stroke-width="7" stroke-linecap="round"/>
+  <rect x="500" y="128" width="112" height="302" rx="56" fill="#1E5F3D"/>
+  <path d="M532 244C548 218 581 218 596 244C610 269 596 304 564 330C532 304 516 269 532 244Z" fill="#F6FAF4"/>
+  <rect x="474" y="402" width="160" height="54" rx="18" fill="#FFFFFF"/>
+  <path d="M502 429H607" stroke="#C95F3C" stroke-width="9" stroke-linecap="round"/>
+  <path d="M126 488H422" stroke="#B6CAB7" stroke-width="10" stroke-linecap="round"/>
+</svg>

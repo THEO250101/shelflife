@@ -1,0 +1,23 @@
+.rescue-value {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  color: #6ee890;
+  background: var(--good-soft);
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.rescue-date {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.rescue-recipe-ref {
+  color: var(--info);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
