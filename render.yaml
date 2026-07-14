@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: shelflife
+    runtime: node
+    plan: free
+    region: oregon
+    branch: main
+    buildCommand: npm ci --prefix frontend && npm --prefix frontend run build && npm ci --prefix backend
+    startCommand: npm --prefix backend start
+    healthCheckPath: /api/health
+    initialDeployHook: npm --prefix backend run seed
+    autoDeployTrigger: commit
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DB_NAME
+        value: shelflife
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: MONGO_URI
+        sync: false

@@ -168,6 +168,8 @@ The verification commands above pass clean when MongoDB is running on `127.0.0.1
 
 ## Deployment
 
+For the step-by-step MongoDB Atlas and Render setup, see [DEPLOYMENT.md](./DEPLOYMENT.md).
+
 The backend serves both the API and the built frontend from the same origin, so no CORS configuration is needed.
 
 1. Build the frontend: `cd frontend && npm run build`
