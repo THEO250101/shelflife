@@ -172,8 +172,13 @@ async function resetDemoUser() {
   ]);
 }
 
-async function seed() {
-  await connectDb();
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
+
+export async function seed(shouldConnect = true) {
+  if (shouldConnect) {
+    await connectDb();
+  }
 
   await resetDemoUser();
 
@@ -203,13 +208,20 @@ async function seed() {
   console.log(`Seeded ShelfLife demo user and ${total} records.`);
   console.log(`Seed data source context: ${sourceLabel()}.`);
   console.log('Demo login: demo / shelflife');
+  return total;
 }
 
-seed()
-  .catch((err) => {
-    console.error(err);
-    process.exitCode = 1;
-  })
-  .finally(async () => {
-    await closeDb();
-  });
+const __filename = fileURLToPath(import.meta.url);
+const isDirectRun = process.argv[1] && path.resolve(process.argv[1]) === path.resolve(__filename);
+
+if (isDirectRun) {
+  seed(true)
+    .catch((err) => {
+      console.error(err);
+      process.exitCode = 1;
+    })
+    .finally(async () => {
+      await closeDb();
+    });
+}
+

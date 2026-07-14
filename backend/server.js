@@ -4,8 +4,9 @@ import session from 'express-session';
 import passport from 'passport';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { connectDb } from './src/db/mongo.js';
+import { connectDb, collection } from './src/db/mongo.js';
 import { configurePassport, ensureAuthenticated } from './src/middleware/auth.js';
+import { seed } from './src/seed/seed.js';
 import authRoutes from './src/routes/auth.js';
 import pantryRoutes from './src/routes/pantryItems.js';
 import recipeRoutes from './src/routes/recipes.js';
@@ -33,6 +34,21 @@ if (isProduction) {
 }
 
 await connectDb();
+
+// Auto-seed if database has no users
+try {
+  const usersCount = await collection('users').countDocuments();
+  if (usersCount === 0) {
+    console.log('No users found in database. Running auto-seed...');
+    await seed(false);
+    console.log('Auto-seed completed successfully.');
+  } else {
+    console.log(`Database already seeded (${usersCount} users found).`);
+  }
+} catch (seedErr) {
+  console.error('Failed to run auto-seed:', seedErr);
+}
+
 configurePassport(passport);
 
 app.use(express.json({ limit: '1mb' }));
