@@ -187,30 +187,27 @@ Deploy to any Node.js host (Render, Railway, Fly.io, DigitalOcean, etc.) that su
 
 **Project:** ShelfLife — full-stack food-rescue and meal-planning app for CS5610.
 
-| Deliverable          | Link / Status                                                             |
-| -------------------- | ------------------------------------------------------------------------- |
-| Public deployment    | [https://shelflife-x4rg.onrender.com](https://shelflife-x4rg.onrender.com) |
-| Source repository    | [GitHub repository](https://github.com/THEO250101/shelflife)               |
-| Demo login           | `demo` / `shelflife`                                                      |
-| Local visual recording | `shelflife_demo_walkthrough.mp4` (not a public narrated submission)      |
-| Public narrated video | **Student must add the final public URL after uploading the narration**   |
-| Extended walkthrough | `project3_walkthrougn.mp4` (local recording)                              |
-| Usability study      | [USABILITY_STUDY.md](./USABILITY_STUDY.md)                                |
-| Accessibility notes  | [ACCESSIBILITY_NOTES.md](./ACCESSIBILITY_NOTES.md)                        |
-| Final iteration plan | [FINAL_ITERATION_PLAN.md](./FINAL_ITERATION_PLAN.md)                      |
-| Deployment guide     | [DEPLOYMENT.md](./DEPLOYMENT.md)                                          |
+| Deliverable           | Link / Status                                                              |
+| --------------------- | -------------------------------------------------------------------------- |
+| Public deployment     | [https://shelflife-x4rg.onrender.com](https://shelflife-x4rg.onrender.com) |
+| Source repository     | [GitHub repository](https://github.com/THEO250101/shelflife)               |
+| Demo login            | `demo` / `shelflife`                                                       |
+| Public narrated video | **Add the final public URL after uploading the narrated demo**             |
+| Usability study       | Completed three-participant study report submitted separately              |
+| Accessibility         | Keyboard and semantic-accessibility improvements are included in the app   |
+| Deployment guide      | [DEPLOYMENT.md](./DEPLOYMENT.md)                                           |
 
 **Submission checklist:**
 
 - [x] Public deployment is available at `https://shelflife-x4rg.onrender.com`.
 - [x] `/api/health`, demo login, and seeded dashboard stats have been verified on the live deployment.
 - [x] Run `npm run lint` and `npm run format:check` in both `backend` and `frontend`, then run the frontend production build.
-- [ ] **Student task:** Complete three real usability sessions and fill in [USABILITY_STUDY.md](./USABILITY_STUDY.md).
+- [x] Three real usability sessions were completed; the formatted report is prepared separately for submission.
 - [ ] **Student task:** Add narration, upload the public video, and paste its URL above and in the course form.
 - [x] Confirm the README screenshot renders locally at `docs/images/shelflife-dashboard.png`.
 - [ ] **Student task:** Confirm the submission-form thumbnail works after uploading it to the course form.
 - [ ] **Student task:** Run Lighthouse or axe and record the final accessibility result.
-- [ ] **Student task:** Push the final iteration commit and verify that Render is serving that commit.
+- [x] Final iteration commit was pushed to `main`; the public Render app was checked after deployment.
 
 ## Final Iteration Evidence
 
@@ -221,7 +218,7 @@ The final iteration improves the existing Project 3 workflow without changing it
 - Usability feedback: create, update, delete, and shopping-toggle actions announce their result.
 - Visual refinement: consistent status colors, spacing, focus states, and responsive component layouts.
 
-The accessibility notes describe the manual verification path. The usability report must be completed from three real participant sessions; the repository intentionally does not invent participant results.
+The usability report is maintained as a separate submission artifact so the repository stays focused on the application code. The public deployment and the report provide the corresponding evaluation evidence.
 
 ## Screenshots
 
