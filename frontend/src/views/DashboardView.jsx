@@ -296,7 +296,7 @@ export default function DashboardView({ onNavigate }) {
         </section>
 
         {/* Sidebar: storage + categories + shopping */}
-        <aside className="dashboard-side">
+        <div className="dashboard-side">
           <section className="surface-panel">
             <div className="panel-heading">
               <h2>&#x1F4CD; Storage</h2>
@@ -353,7 +353,7 @@ export default function DashboardView({ onNavigate }) {
               )}
             </div>
           </section>
-        </aside>
+        </div>
       </div>
     </section>
   );
