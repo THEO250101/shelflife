@@ -30,12 +30,11 @@
   background: var(--surface-soft);
   border-color: var(--line);
   color: var(--text);
-  outline: none;
 }
 
 .nav-button.active {
   background: var(--accent-soft);
   border-color: rgba(242, 201, 76, 0.22);
-  color: var(--accent);
+  color: var(--accent-strong);
   box-shadow: 0 0 12px var(--accent-glow);
 }

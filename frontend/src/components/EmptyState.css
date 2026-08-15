@@ -12,9 +12,9 @@
   margin-bottom: 8px;
 }
 
-.empty-state strong {
+.empty-state-title {
   display: block;
-  margin-bottom: 4px;
+  margin: 0 0 4px;
   font-size: 0.94rem;
   font-weight: 700;
 }

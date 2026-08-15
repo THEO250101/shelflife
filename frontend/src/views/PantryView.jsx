@@ -39,6 +39,8 @@ export default function PantryView() {
   const [editingId, setEditingId] = useState('');
   const [filters, setFilters] = useState({ q: '', status: '', category: '', location: '' });
   const [error, setError] = useState('');
+  const [notice, setNotice] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
   const filteredItems = useMemo(() => items, [items]);
 
@@ -99,6 +101,13 @@ export default function PantryView() {
 
   async function saveItem(event) {
     event.preventDefault();
+    if (submitting) {
+      return;
+    }
+    const action = editingId ? 'updated' : 'added';
+    setSubmitting(true);
+    setError('');
+    setNotice('');
     try {
       if (editingId) {
         await api.update('pantry-items', editingId, form);
@@ -108,8 +117,11 @@ export default function PantryView() {
       setForm(emptyForm);
       setEditingId('');
       await loadItems();
+      setNotice(`Ingredient ${action}.`);
     } catch (err) {
       setError(err.message);
+    } finally {
+      setSubmitting(false);
     }
   }
 
@@ -117,6 +129,7 @@ export default function PantryView() {
     try {
       await api.remove('pantry-items', id);
       await loadItems();
+      setNotice('Ingredient deleted.');
     } catch (err) {
       setError(err.message);
     }
@@ -136,10 +149,11 @@ export default function PantryView() {
       </PageHeader>
 
       <ErrorBanner message={error} />
+      <ErrorBanner message={notice} tone="success" />
 
       <div className="grid-two">
         {/* List side */}
-        <section className="surface-panel list-panel">
+        <section className="surface-panel list-panel" aria-label="Pantry inventory">
           <div className="toolbar">
             <input
               name="q"
@@ -149,13 +163,23 @@ export default function PantryView() {
               aria-label="Search pantry"
               className="search-input"
             />
-            <select name="status" value={filters.status} onChange={updateFilter}>
+            <select
+              name="status"
+              value={filters.status}
+              onChange={updateFilter}
+              aria-label="Filter pantry by status"
+            >
               <option value="">All statuses</option>
               {STATUSES.map((s) => (
                 <option key={s}>{s}</option>
               ))}
             </select>
-            <select name="location" value={filters.location} onChange={updateFilter}>
+            <select
+              name="location"
+              value={filters.location}
+              onChange={updateFilter}
+              aria-label="Filter pantry by storage location"
+            >
               <option value="">All locations</option>
               {LOCATIONS.map((l) => (
                 <option key={l}>{l}</option>
@@ -176,10 +200,10 @@ export default function PantryView() {
             <span>{editingId ? 'Editing item...' : 'Select an item to edit'}</span>
           </div>
 
-          <div className="item-list">
+          <ul className="item-list">
             {filteredItems.length ? (
               filteredItems.map((item) => (
-                <article
+                <li
                   className={`item-row ${editingId === item._id ? 'item-row--active' : ''}`}
                   key={item._id}
                 >
@@ -207,18 +231,20 @@ export default function PantryView() {
                       Delete
                     </button>
                   </div>
-                </article>
+                </li>
               ))
             ) : (
-              <EmptyState emoji="&#x1F96C;" title="No pantry items found">
-                Add a few ingredients or change the filters.
-              </EmptyState>
+              <li>
+                <EmptyState emoji="&#x1F96C;" title="No pantry items found">
+                  Add a few ingredients or change the filters.
+                </EmptyState>
+              </li>
             )}
-          </div>
+          </ul>
         </section>
 
         {/* Form side */}
-        <form className="surface-panel form-panel" onSubmit={saveItem}>
+        <form className="surface-panel form-panel" onSubmit={saveItem} aria-busy={submitting}>
           <h2>{editingId ? 'Edit ingredient' : 'Add ingredient'}</h2>
           <div className="field-grid">
             <div className="form-field">
@@ -297,8 +323,8 @@ export default function PantryView() {
             <textarea id="notes" name="notes" value={form.notes} onChange={updateForm} rows="2" />
           </div>
           <div className="form-actions">
-            <button type="submit" className="primary-button">
-              {editingId ? 'Save changes' : 'Add ingredient'}
+            <button type="submit" className="primary-button" disabled={submitting}>
+              {submitting ? 'Saving...' : editingId ? 'Save changes' : 'Add ingredient'}
             </button>
             {editingId ? (
               <button type="button" className="secondary-button" onClick={cancelEdit}>

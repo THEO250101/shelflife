@@ -21,6 +21,8 @@ export default function MealPlanView() {
   const [form, setForm] = useState(emptyForm);
   const [editingId, setEditingId] = useState('');
   const [error, setError] = useState('');
+  const [notice, setNotice] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
   async function load() {
     try {
@@ -60,6 +62,13 @@ export default function MealPlanView() {
 
   async function saveItem(event) {
     event.preventDefault();
+    if (submitting) {
+      return;
+    }
+    const action = editingId ? 'updated' : 'added';
+    setSubmitting(true);
+    setError('');
+    setNotice('');
     try {
       if (editingId) {
         await api.update('meal-plans', editingId, form);
@@ -69,8 +78,11 @@ export default function MealPlanView() {
       setEditingId('');
       setForm(emptyForm);
       await load();
+      setNotice(`Meal ${action}.`);
     } catch (err) {
       setError(err.message);
+    } finally {
+      setSubmitting(false);
     }
   }
 
@@ -78,6 +90,7 @@ export default function MealPlanView() {
     try {
       await api.remove('meal-plans', id);
       await load();
+      setNotice('Meal deleted.');
     } catch (err) {
       setError(err.message);
     }
@@ -95,10 +108,11 @@ export default function MealPlanView() {
       </PageHeader>
 
       <ErrorBanner message={error} />
+      <ErrorBanner message={notice} tone="success" />
 
       <div className="grid-two">
         {/* List */}
-        <section className="surface-panel list-panel">
+        <section className="surface-panel list-panel" aria-label="Planned meals">
           <div className="list-summary">
             <span>
               <strong>{items.length}</strong> planned meals
@@ -106,10 +120,10 @@ export default function MealPlanView() {
             </span>
             <span>{editingId ? 'Editing...' : 'Select a meal to edit'}</span>
           </div>
-          <div className="item-list">
+          <ul className="item-list">
             {items.length ? (
               items.map((item) => (
-                <article className="item-row" key={item._id}>
+                <li className="item-row" key={item._id}>
                   <div>
                     <h3>{item.title}</h3>
                     <p>
@@ -136,18 +150,20 @@ export default function MealPlanView() {
                       Delete
                     </button>
                   </div>
-                </article>
+                </li>
               ))
             ) : (
-              <EmptyState emoji="&#x1F4C5;" title="No meals planned yet">
-                Plan your meals for the week and connect them to pantry decisions.
-              </EmptyState>
+              <li>
+                <EmptyState emoji="&#x1F4C5;" title="No meals planned yet">
+                  Plan your meals for the week and connect them to pantry decisions.
+                </EmptyState>
+              </li>
             )}
-          </div>
+          </ul>
         </section>
 
         {/* Form */}
-        <form className="surface-panel form-panel" onSubmit={saveItem}>
+        <form className="surface-panel form-panel" onSubmit={saveItem} aria-busy={submitting}>
           <h2>{editingId ? 'Edit meal' : 'Plan a meal'}</h2>
           <div className="field-grid">
             <div className="form-field">
@@ -187,8 +203,8 @@ export default function MealPlanView() {
             <textarea id="notes" name="notes" value={form.notes} onChange={updateForm} rows="2" />
           </div>
           <div className="form-actions">
-            <button type="submit" className="primary-button">
-              {editingId ? 'Save changes' : 'Add meal'}
+            <button type="submit" className="primary-button" disabled={submitting}>
+              {submitting ? 'Saving...' : editingId ? 'Save changes' : 'Add meal'}
             </button>
             {editingId ? (
               <button type="button" className="secondary-button" onClick={cancelEdit}>

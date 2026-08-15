@@ -21,6 +21,8 @@ export default function RescueLogView() {
   const [form, setForm] = useState(emptyForm);
   const [editingId, setEditingId] = useState('');
   const [error, setError] = useState('');
+  const [notice, setNotice] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
   async function load() {
     try {
@@ -64,6 +66,13 @@ export default function RescueLogView() {
 
   async function saveItem(event) {
     event.preventDefault();
+    if (submitting) {
+      return;
+    }
+    const action = editingId ? 'updated' : 'added';
+    setSubmitting(true);
+    setError('');
+    setNotice('');
     try {
       if (editingId) {
         await api.update('rescue-logs', editingId, form);
@@ -73,8 +82,11 @@ export default function RescueLogView() {
       setEditingId('');
       setForm(emptyForm);
       await load();
+      setNotice(`Rescue log ${action}.`);
     } catch (err) {
       setError(err.message);
+    } finally {
+      setSubmitting(false);
     }
   }
 
@@ -82,6 +94,7 @@ export default function RescueLogView() {
     try {
       await api.remove('rescue-logs', id);
       await load();
+      setNotice('Rescue log deleted.');
     } catch (err) {
       setError(err.message);
     }
@@ -99,10 +112,11 @@ export default function RescueLogView() {
       </PageHeader>
 
       <ErrorBanner message={error} />
+      <ErrorBanner message={notice} tone="success" />
 
       <div className="grid-two">
         {/* List */}
-        <section className="surface-panel list-panel">
+        <section className="surface-panel list-panel" aria-label="Rescue log history">
           <div className="list-summary">
             <span>
               <strong>{items.length}</strong> rescue logs
@@ -110,10 +124,10 @@ export default function RescueLogView() {
             </span>
             <span>{editingId ? 'Editing log...' : 'Select to edit'}</span>
           </div>
-          <div className="item-list">
+          <ul className="item-list">
             {items.length ? (
               items.map((item) => (
-                <article className="item-row" key={item._id}>
+                <li className="item-row" key={item._id}>
                   <div>
                     <h3>{item.pantryItemName}</h3>
                     <p>
@@ -147,18 +161,20 @@ export default function RescueLogView() {
                       Delete
                     </button>
                   </div>
-                </article>
+                </li>
               ))
             ) : (
-              <EmptyState emoji="&#x1F3F7;&#xFE0F;" title="No rescue history yet">
-                Log rescued items to see your impact on the dashboard.
-              </EmptyState>
+              <li>
+                <EmptyState emoji="&#x1F3F7;&#xFE0F;" title="No rescue history yet">
+                  Log rescued items to see your impact on the dashboard.
+                </EmptyState>
+              </li>
             )}
-          </div>
+          </ul>
         </section>
 
         {/* Form */}
-        <form className="surface-panel form-panel" onSubmit={saveItem}>
+        <form className="surface-panel form-panel" onSubmit={saveItem} aria-busy={submitting}>
           <h2>{editingId ? 'Edit log' : 'Record rescue'}</h2>
           <div className="field-grid">
             <div className="form-field">
@@ -216,8 +232,8 @@ export default function RescueLogView() {
             <textarea id="notes" name="notes" value={form.notes} onChange={updateForm} rows="2" />
           </div>
           <div className="form-actions">
-            <button type="submit" className="primary-button">
-              {editingId ? 'Save changes' : 'Record rescue'}
+            <button type="submit" className="primary-button" disabled={submitting}>
+              {submitting ? 'Saving...' : editingId ? 'Save changes' : 'Record rescue'}
             </button>
             {editingId ? (
               <button type="button" className="secondary-button" onClick={cancelEdit}>

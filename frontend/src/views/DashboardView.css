@@ -168,7 +168,6 @@
   border-radius: var(--radius);
   background: var(--surface);
   box-shadow: var(--shadow-sm);
-  cursor: pointer;
   color: inherit;
   padding: 0;
   text-align: left;
@@ -191,16 +190,10 @@
   transform: scale(1.04);
 }
 
-.food-card:hover,
-.food-card:focus-visible {
+.food-card:hover {
   border-color: var(--accent);
   box-shadow: var(--shadow);
   transform: translateY(-1px);
-}
-
-.food-card:focus-visible {
-  outline: 3px solid var(--accent-glow);
-  outline-offset: 3px;
 }
 
 .food-card::after {
@@ -262,6 +255,8 @@
 }
 
 .food-card-action {
+  display: inline-flex;
+  align-items: center;
   width: fit-content;
   margin-top: 4px;
   padding: 4px 9px;
@@ -269,8 +264,18 @@
   border-radius: var(--radius-pill);
   color: #fff;
   background: rgba(255, 255, 255, 0.12);
+  font: inherit;
   font-size: 0.72rem;
   font-weight: 800;
+  cursor: pointer;
+}
+
+.food-card-action:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.food-card-action:focus-visible {
+  outline-color: #fff;
 }
 
 /* Bottom panels */

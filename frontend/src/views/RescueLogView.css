@@ -3,7 +3,7 @@
   align-items: center;
   padding: 2px 8px;
   border-radius: var(--radius-pill);
-  color: #6ee890;
+  color: var(--good-strong);
   background: var(--good-soft);
   font-size: 0.78rem;
   font-weight: 700;

@@ -77,14 +77,14 @@ Run that command from Render Shell if available, or run it locally after creatin
 
 ## 4. Verify
 
-1. Open `https://<your-render-service>.onrender.com/api/health`.
+1. Open `https://shelflife-x4rg.onrender.com/api/health`.
 2. Expected response:
 
 ```json
 { "ok": true, "name": "ShelfLife API" }
 ```
 
-3. Open `https://<your-render-service>.onrender.com`.
+3. Open `https://shelflife-x4rg.onrender.com`.
 4. Log in with:
 
 ```text
@@ -99,5 +99,5 @@ Password: shelflife
 Submit:
 
 - GitHub repository: `https://github.com/THEO250101/shelflife`
-- Render app URL: `https://<your-render-service>.onrender.com`
+- Render app URL: `https://shelflife-x4rg.onrender.com`
 - Screenshot thumbnail from `docs/images/shelflife-dashboard.png`

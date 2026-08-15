@@ -14,14 +14,14 @@
 }
 
 .status-badge.use-soon {
-  color: #fbbf88;
+  color: var(--warning-strong);
   background: var(--warning-soft);
   border-color: rgba(245, 158, 75, 0.25);
 }
 
 .status-badge.expired,
 .status-badge.discarded {
-  color: #f4a4a4;
+  color: var(--danger-strong);
   background: var(--danger-soft);
   border-color: rgba(248, 113, 113, 0.22);
 }
@@ -29,19 +29,19 @@
 .status-badge.fresh,
 .status-badge.rescued,
 .status-badge.cooked {
-  color: #6ee890;
+  color: var(--good-strong);
   background: var(--good-soft);
   border-color: rgba(74, 222, 128, 0.22);
 }
 
 .status-badge.planned {
-  color: #8bd4ef;
+  color: var(--info-strong);
   background: var(--info-soft);
   border-color: rgba(96, 192, 224, 0.22);
 }
 
 .status-badge.used {
-  color: #8bd4ef;
+  color: var(--info-strong);
   background: var(--info-soft);
   border-color: rgba(96, 192, 224, 0.22);
 }

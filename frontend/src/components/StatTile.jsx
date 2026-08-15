@@ -3,7 +3,7 @@ import './StatTile.css';
 
 export default function StatTile({ label, value, tone, emoji }) {
   return (
-    <article className={`stat-tile ${tone || ''}`}>
+    <div className={`stat-tile ${tone || ''}`}>
       <span className="stat-label">
         {emoji ? (
           <span className="stat-emoji" aria-hidden="true">
@@ -13,7 +13,7 @@ export default function StatTile({ label, value, tone, emoji }) {
         {label}
       </span>
       <strong>{value}</strong>
-    </article>
+    </div>
   );
 }
 

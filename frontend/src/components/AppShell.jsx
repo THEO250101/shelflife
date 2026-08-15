@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import NavButton from './NavButton.jsx';
 import './AppShell.css';
@@ -20,17 +21,26 @@ export default function AppShell({
   theme,
   children,
 }) {
+  const mainRef = useRef(null);
+
+  useEffect(() => {
+    mainRef.current?.focus();
+  }, [activeView]);
+
   return (
     <div className="app-shell">
+      <a className="skip-link" href="#main-content">
+        Skip to main content
+      </a>
       <header className="topbar">
         <button type="button" className="brand-lockup" onClick={() => onNavigate('dashboard')}>
           <span className="brand-logo" aria-hidden="true">
             S
           </span>
-          <div className="brand-text">
+          <span className="brand-text">
             <strong>ShelfLife</strong>
             <span>Fresh tracking, less waste</span>
-          </div>
+          </span>
         </button>
 
         <nav className="main-nav" aria-label="Main navigation">
@@ -67,7 +77,9 @@ export default function AppShell({
         </div>
       </header>
 
-      <main className="workspace">{children}</main>
+      <main ref={mainRef} id="main-content" className="workspace" tabIndex="-1">
+        {children}
+      </main>
     </div>
   );
 }

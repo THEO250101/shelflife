@@ -30,6 +30,7 @@ export default function RecipesView() {
   const [editingId, setEditingId] = useState('');
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
   async function load() {
     try {
@@ -75,6 +76,9 @@ export default function RecipesView() {
 
   async function saveRecipe(event) {
     event.preventDefault();
+    if (submitting) {
+      return;
+    }
     const body = {
       ...form,
       ingredients: parseList(form.ingredients),
@@ -84,6 +88,10 @@ export default function RecipesView() {
         .map((line) => line.trim())
         .filter(Boolean),
     };
+    const action = editingId ? 'updated' : 'added';
+    setSubmitting(true);
+    setError('');
+    setNotice('');
     try {
       if (editingId) {
         await api.update('recipes', editingId, body);
@@ -93,8 +101,11 @@ export default function RecipesView() {
       setForm(emptyForm);
       setEditingId('');
       await load();
+      setNotice(`Recipe ${action}.`);
     } catch (err) {
       setError(err.message);
+    } finally {
+      setSubmitting(false);
     }
   }
 
@@ -102,6 +113,7 @@ export default function RecipesView() {
     try {
       await api.remove('recipes', id);
       await load();
+      setNotice('Recipe deleted.');
     } catch (err) {
       setError(err.message);
     }
@@ -128,11 +140,11 @@ export default function RecipesView() {
         Recipes ranked by what you already have. Add missing items to the shopping list.
       </PageHeader>
 
-      <ErrorBanner message={error || notice} />
+      <ErrorBanner message={error || notice} tone={error ? 'error' : 'success'} />
 
       <div className="grid-two">
         {/* List */}
-        <section className="surface-panel list-panel">
+        <section className="surface-panel list-panel" aria-label="Recipe collection">
           <h2>&#x1F373; Best matches</h2>
           <div className="recipe-match-grid">
             {matches.length ? (
@@ -183,9 +195,9 @@ export default function RecipesView() {
             </span>
             <span>{editingId ? 'Editing recipe...' : 'Select a recipe to edit'}</span>
           </div>
-          <div className="item-list">
+          <ul className="item-list">
             {recipes.map((recipe) => (
-              <article className="item-row" key={recipe._id}>
+              <li className="item-row" key={recipe._id}>
                 <div>
                   <h3>{recipe.title}</h3>
                   <p>
@@ -209,13 +221,13 @@ export default function RecipesView() {
                     Delete
                   </button>
                 </div>
-              </article>
+              </li>
             ))}
-          </div>
+          </ul>
         </section>
 
         {/* Form */}
-        <form className="surface-panel form-panel" onSubmit={saveRecipe}>
+        <form className="surface-panel form-panel" onSubmit={saveRecipe} aria-busy={submitting}>
           <h2>{editingId ? 'Edit recipe' : 'New recipe'}</h2>
           <div className="form-field">
             <label htmlFor="title">Title *</label>
@@ -272,8 +284,8 @@ export default function RecipesView() {
             />
           </div>
           <div className="form-actions">
-            <button type="submit" className="primary-button">
-              {editingId ? 'Save changes' : 'Add recipe'}
+            <button type="submit" className="primary-button" disabled={submitting}>
+              {submitting ? 'Saving...' : editingId ? 'Save changes' : 'Add recipe'}
             </button>
             {editingId ? (
               <button type="button" className="secondary-button" onClick={cancelEdit}>

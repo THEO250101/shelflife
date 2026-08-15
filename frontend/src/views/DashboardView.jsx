@@ -158,11 +158,7 @@ export default function DashboardView({ onNavigate }) {
 
       {/* Hero food cards */}
       <section className="food-card-grid" aria-label="Highlights">
-        <button
-          type="button"
-          className="food-card food-card--hero"
-          onClick={() => onNavigate('pantry')}
-        >
+        <article className="food-card food-card--hero">
           <img src={photoFor(0)} alt="Market produce arranged in crates" />
           <div className="food-card-body">
             <span className="food-card-badge">&#x26A0;&#xFE0F; Use first</span>
@@ -172,11 +168,13 @@ export default function DashboardView({ onNavigate }) {
                 ? `${leadItem.quantity} ${leadItem.unit} · ${leadItem.location} · ${leadItem.daysLeft} days left`
                 : 'Add pantry items with dates to build your rescue queue.'}
             </p>
-            <span className="food-card-action">Open pantry</span>
+            <button type="button" className="food-card-action" onClick={() => onNavigate('pantry')}>
+              Open pantry
+            </button>
           </div>
-        </button>
+        </article>
 
-        <button type="button" className="food-card" onClick={() => onNavigate('recipes')}>
+        <article className="food-card">
           <img src={photoFor(2)} alt="Cooked dinner plate with vegetables" />
           <div className="food-card-body">
             <span className="food-card-badge food-card-badge--match">&#x1F373; Best match</span>
@@ -186,11 +184,17 @@ export default function DashboardView({ onNavigate }) {
                 ? `${leadRecipe.matchScore}% pantry match · Have ${leadRecipe.availableCount}, need ${leadRecipe.missingCount}`
                 : 'Add recipes and pantry items to see matches.'}
             </p>
-            <span className="food-card-action">Open recipes</span>
+            <button
+              type="button"
+              className="food-card-action"
+              onClick={() => onNavigate('recipes')}
+            >
+              Open recipes
+            </button>
           </div>
-        </button>
+        </article>
 
-        <button type="button" className="food-card" onClick={() => onNavigate('shopping')}>
+        <article className="food-card">
           <img src={photoFor(3)} alt="Grocery bag with fresh food" />
           <div className="food-card-body">
             <span className="food-card-badge food-card-badge--shop">&#x1F6D2; Buy next</span>
@@ -200,11 +204,17 @@ export default function DashboardView({ onNavigate }) {
                 ? `${shoppingItems[0].quantity} ${shoppingItems[0].unit} · ${shoppingItems[0].reason || 'Manual item'}`
                 : 'Missing ingredients and manual items appear here.'}
             </p>
-            <span className="food-card-action">Open shopping</span>
+            <button
+              type="button"
+              className="food-card-action"
+              onClick={() => onNavigate('shopping')}
+            >
+              Open shopping
+            </button>
           </div>
-        </button>
+        </article>
 
-        <button type="button" className="food-card" onClick={() => onNavigate('rescue')}>
+        <article className="food-card">
           <img src={photoFor(4)} alt="Hands preparing ingredients on a kitchen counter" />
           <div className="food-card-body">
             <span className="food-card-badge food-card-badge--rescue">
@@ -216,9 +226,11 @@ export default function DashboardView({ onNavigate }) {
                 ? `${recentRescues[0].action} · $${Number(recentRescues[0].estimatedSavedValue || 0).toFixed(2)} saved`
                 : 'Log food you saved to track your impact.'}
             </p>
-            <span className="food-card-action">Open rescue log</span>
+            <button type="button" className="food-card-action" onClick={() => onNavigate('rescue')}>
+              Open rescue log
+            </button>
           </div>
-        </button>
+        </article>
       </section>
 
       {/* Bottom panels */}
@@ -229,10 +241,10 @@ export default function DashboardView({ onNavigate }) {
             <h2>&#x23F0; Use-soon queue</h2>
             <span className="panel-count">{useSoonItems.length} items</span>
           </div>
-          <div className="item-list">
+          <ul className="item-list">
             {useSoonItems.length ? (
               useSoonItems.slice(0, 6).map((item) => (
-                <article className="item-row" key={item._id}>
+                <li className="item-row" key={item._id}>
                   <div>
                     <h3>{item.name}</h3>
                     <p>
@@ -243,14 +255,16 @@ export default function DashboardView({ onNavigate }) {
                     <span className="days-badge">{item.daysLeft}d left</span>
                     <StatusBadge status="Use Soon" />
                   </div>
-                </article>
+                </li>
               ))
             ) : (
-              <EmptyState title="Nothing urgent">
-                Add pantry items with expiration dates.
-              </EmptyState>
+              <li>
+                <EmptyState title="Nothing urgent">
+                  Add pantry items with expiration dates.
+                </EmptyState>
+              </li>
             )}
-          </div>
+          </ul>
         </section>
 
         {/* Recipe matches */}

@@ -19,6 +19,8 @@ export default function ShoppingListView() {
   const [form, setForm] = useState(emptyForm);
   const [editingId, setEditingId] = useState('');
   const [error, setError] = useState('');
+  const [notice, setNotice] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
   async function load() {
     try {
@@ -62,6 +64,13 @@ export default function ShoppingListView() {
 
   async function saveItem(event) {
     event.preventDefault();
+    if (submitting) {
+      return;
+    }
+    const action = editingId ? 'updated' : 'added';
+    setSubmitting(true);
+    setError('');
+    setNotice('');
     try {
       if (editingId) {
         await api.update('shopping-list-items', editingId, form);
@@ -71,8 +80,11 @@ export default function ShoppingListView() {
       setEditingId('');
       setForm(emptyForm);
       await load();
+      setNotice(`Shopping item ${action}.`);
     } catch (err) {
       setError(err.message);
+    } finally {
+      setSubmitting(false);
     }
   }
 
@@ -80,6 +92,7 @@ export default function ShoppingListView() {
     try {
       await api.update('shopping-list-items', item._id, { ...item, checked: !item.checked });
       await load();
+      setNotice(item.checked ? `${item.name} reopened.` : `${item.name} marked bought.`);
     } catch (err) {
       setError(err.message);
     }
@@ -89,6 +102,7 @@ export default function ShoppingListView() {
     try {
       await api.remove('shopping-list-items', id);
       await load();
+      setNotice('Shopping item deleted.');
     } catch (err) {
       setError(err.message);
     }
@@ -109,20 +123,21 @@ export default function ShoppingListView() {
       </PageHeader>
 
       <ErrorBanner message={error} />
+      <ErrorBanner message={notice} tone="success" />
 
       <div className="grid-two">
         {/* List */}
-        <section className="surface-panel list-panel">
+        <section className="surface-panel list-panel" aria-label="Shopping list">
           <div className="list-summary">
             <span>
               <strong>{openCount}</strong> to buy &middot; <strong>{boughtCount}</strong> bought
             </span>
             <span>{editingId ? 'Editing item...' : 'Click an item to toggle'}</span>
           </div>
-          <div className="item-list">
+          <ul className="item-list">
             {items.length ? (
               items.map((item) => (
-                <article
+                <li
                   className={`item-row shop-item-row ${item.checked ? 'shop-item-row--bought' : ''}`}
                   key={item._id}
                 >
@@ -156,18 +171,20 @@ export default function ShoppingListView() {
                       Delete
                     </button>
                   </div>
-                </article>
+                </li>
               ))
             ) : (
-              <EmptyState emoji="&#x1F6D2;" title="Shopping list is empty">
-                Add items manually or generate missing ingredients from recipes.
-              </EmptyState>
+              <li>
+                <EmptyState emoji="&#x1F6D2;" title="Shopping list is empty">
+                  Add items manually or generate missing ingredients from recipes.
+                </EmptyState>
+              </li>
             )}
-          </div>
+          </ul>
         </section>
 
         {/* Form */}
-        <form className="surface-panel form-panel" onSubmit={saveItem}>
+        <form className="surface-panel form-panel" onSubmit={saveItem} aria-busy={submitting}>
           <h2>{editingId ? 'Edit item' : 'Add item'}</h2>
           <div className="field-grid">
             <div className="form-field">
@@ -211,8 +228,8 @@ export default function ShoppingListView() {
             Already bought
           </label>
           <div className="form-actions">
-            <button type="submit" className="primary-button">
-              {editingId ? 'Save changes' : 'Add to list'}
+            <button type="submit" className="primary-button" disabled={submitting}>
+              {submitting ? 'Saving...' : editingId ? 'Save changes' : 'Add to list'}
             </button>
             {editingId ? (
               <button type="button" className="secondary-button" onClick={cancelEdit}>

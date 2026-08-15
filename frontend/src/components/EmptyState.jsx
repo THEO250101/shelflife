@@ -3,15 +3,15 @@ import './EmptyState.css';
 
 export default function EmptyState({ emoji, title, children }) {
   return (
-    <section className="empty-state">
+    <div className="empty-state" role="status">
       {emoji ? (
         <span className="empty-state-emoji" aria-hidden="true">
           {emoji}
         </span>
       ) : null}
-      <strong>{title}</strong>
+      <h3 className="empty-state-title">{title}</h3>
       <p>{children}</p>
-    </section>
+    </div>
   );
 }
 

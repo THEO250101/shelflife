@@ -182,7 +182,7 @@ The planned visual direction is a warm but practical kitchen utility interface:
 +--------------------------------------------------------------------------------+
 ```
 
-Screenshots from the final running app should still be added to `docs/images/` and embedded in the README before submission.
+The signed-in dashboard screenshot is stored at `docs/images/shelflife-dashboard.png` and embedded in the README. Add any final deployment screenshots beside it before submission.
 
 ## 7.1 Data Realism Plan
 

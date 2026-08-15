@@ -17,6 +17,22 @@ export default function LoginView({ onLogin, error, setError }) {
     setForm((current) => ({ ...current, [event.target.name]: event.target.value }));
   }
 
+  function handleTabKeyDown(event) {
+    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) {
+      return;
+    }
+
+    event.preventDefault();
+    const nextMode =
+      event.key === 'Home' || (event.key === 'ArrowLeft' && mode === 'register')
+        ? 'login'
+        : event.key === 'End' || (event.key === 'ArrowRight' && mode === 'login')
+          ? 'register'
+          : mode;
+    setMode(nextMode);
+    document.getElementById(`${nextMode}-tab`)?.focus();
+  }
+
   async function handleSubmit(event) {
     event.preventDefault();
     setSubmitting(true);
@@ -90,75 +106,89 @@ export default function LoginView({ onLogin, error, setError }) {
       </section>
 
       {/* Right: auth card */}
-      <section className="login-card">
+      <div className="login-card">
         <div className="login-tabs" role="tablist" aria-label="Authentication mode">
           <button
+            id="login-tab"
             type="button"
+            role="tab"
+            aria-selected={mode === 'login'}
+            aria-controls="auth-panel"
+            tabIndex={mode === 'login' ? 0 : -1}
             className={mode === 'login' ? 'login-tab active' : 'login-tab'}
             onClick={() => setMode('login')}
+            onKeyDown={handleTabKeyDown}
           >
             Sign in
           </button>
           <button
+            id="register-tab"
             type="button"
+            role="tab"
+            aria-selected={mode === 'register'}
+            aria-controls="auth-panel"
+            tabIndex={mode === 'register' ? 0 : -1}
             className={mode === 'register' ? 'login-tab active' : 'login-tab'}
             onClick={() => setMode('register')}
+            onKeyDown={handleTabKeyDown}
           >
             Create account
           </button>
         </div>
 
-        <ErrorBanner message={error} />
+        <div id="auth-panel" role="tabpanel" aria-labelledby={`${mode}-tab`}>
+          <ErrorBanner message={error} />
 
-        <form onSubmit={handleSubmit} className="auth-form">
-          <div className="form-field">
-            <label htmlFor="username">Username</label>
-            <input
-              id="username"
-              name="username"
-              value={form.username}
-              onChange={updateField}
-              placeholder="your-name"
-              autoComplete="username"
-            />
-          </div>
-          {mode === 'register' ? (
+          <form onSubmit={handleSubmit} className="auth-form" aria-busy={submitting}>
             <div className="form-field">
-              <label htmlFor="displayName">Display name</label>
+              <label htmlFor="username">Username</label>
               <input
-                id="displayName"
-                name="displayName"
-                value={form.displayName}
+                id="username"
+                name="username"
+                value={form.username}
                 onChange={updateField}
-                placeholder="Chef Alex"
+                placeholder="your-name"
+                autoComplete="username"
               />
             </div>
-          ) : null}
-          <div className="form-field">
-            <label htmlFor="password">Password</label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              value={form.password}
-              onChange={updateField}
-              placeholder="••••••••"
-              autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
-            />
-          </div>
-          <button type="submit" className="primary-button login-submit" disabled={submitting}>
-            {submitting
-              ? 'Please wait...'
-              : mode === 'login'
-                ? 'Open ShelfLife'
-                : 'Create your account'}
-          </button>
-        </form>
+            {mode === 'register' ? (
+              <div className="form-field">
+                <label htmlFor="displayName">Display name</label>
+                <input
+                  id="displayName"
+                  name="displayName"
+                  value={form.displayName}
+                  onChange={updateField}
+                  placeholder="Chef Alex"
+                />
+              </div>
+            ) : null}
+            <div className="form-field">
+              <label htmlFor="password">Password</label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                value={form.password}
+                onChange={updateField}
+                placeholder="••••••••"
+                autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
+              />
+            </div>
+            <button type="submit" className="primary-button login-submit" disabled={submitting}>
+              {submitting
+                ? 'Please wait...'
+                : mode === 'login'
+                  ? 'Open ShelfLife'
+                  : 'Create your account'}
+            </button>
+          </form>
+        </div>
 
         <p className="demo-note">
           Demo account: <strong>demo</strong> / <strong>shelflife</strong>
         </p>
-      </section>
+      </div>
     </main>
   );
 }

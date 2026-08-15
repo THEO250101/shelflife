@@ -50,11 +50,22 @@ export default function App() {
     setTheme((current) => (current === 'dark' ? 'light' : 'dark'));
   }
 
+  function handleNavigate(view) {
+    setActiveView(view);
+    window.requestAnimationFrame(() => {
+      document.getElementById('main-content')?.focus();
+    });
+  }
+
   const ActiveView = viewMap[activeView] || DashboardView;
-  const activeViewProps = activeView === 'dashboard' ? { onNavigate: setActiveView } : {};
+  const activeViewProps = activeView === 'dashboard' ? { onNavigate: handleNavigate } : {};
 
   if (loading) {
-    return <main className="boot-screen">Opening the pantry...</main>;
+    return (
+      <main className="boot-screen" role="status" aria-live="polite">
+        Opening the pantry...
+      </main>
+    );
   }
 
   if (!user) {
@@ -65,7 +76,7 @@ export default function App() {
     <AppShell
       user={user}
       activeView={activeView}
-      onNavigate={setActiveView}
+      onNavigate={handleNavigate}
       onLogout={handleLogout}
       onToggleTheme={toggleTheme}
       theme={theme}

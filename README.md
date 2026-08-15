@@ -24,7 +24,7 @@ ShelfLife is an anti-food-waste pantry and fridge tracker built for CS5610 Proje
   - Storage location summary
   - Best recipe matches ranked by pantry coverage
   - Recent rescue activity
-- Seed script with 1,120 source-backed demo records across 6 collections
+- Seed script with 1,120 synthetic records across five user-owned CRUD collections, plus the users collection
 
 ## Tech Stack
 
@@ -144,9 +144,9 @@ npm start                     # Serves API + frontend from http://localhost:3000
 
 After running the seed script:
 
-| Field    | Value      |
-|----------|------------|
-| Username | `demo`     |
+| Field    | Value       |
+| -------- | ----------- |
+| Username | `demo`      |
 | Password | `shelflife` |
 
 ## Verification Commands
@@ -182,6 +182,46 @@ The backend serves both the API and the built frontend from the same origin, so 
 3. Start: `cd backend && npm start`
 
 Deploy to any Node.js host (Render, Railway, Fly.io, DigitalOcean, etc.) that supports persistent storage for MongoDB or connect to MongoDB Atlas.
+
+## Final Submission
+
+**Project:** ShelfLife — full-stack food-rescue and meal-planning app for CS5610.
+
+| Deliverable          | Link / Status                                                             |
+| -------------------- | ------------------------------------------------------------------------- |
+| Public deployment    | [https://shelflife-x4rg.onrender.com](https://shelflife-x4rg.onrender.com) |
+| Source repository    | [GitHub repository](https://github.com/THEO250101/shelflife)               |
+| Demo login           | `demo` / `shelflife`                                                      |
+| Local visual recording | `shelflife_demo_walkthrough.mp4` (not a public narrated submission)      |
+| Public narrated video | **Student must add the final public URL after uploading the narration**   |
+| Extended walkthrough | `project3_walkthrougn.mp4` (local recording)                              |
+| Usability study      | [USABILITY_STUDY.md](./USABILITY_STUDY.md)                                |
+| Accessibility notes  | [ACCESSIBILITY_NOTES.md](./ACCESSIBILITY_NOTES.md)                        |
+| Final iteration plan | [FINAL_ITERATION_PLAN.md](./FINAL_ITERATION_PLAN.md)                      |
+| Deployment guide     | [DEPLOYMENT.md](./DEPLOYMENT.md)                                          |
+
+**Submission checklist:**
+
+- [x] Public deployment is available at `https://shelflife-x4rg.onrender.com`.
+- [x] `/api/health`, demo login, and seeded dashboard stats have been verified on the live deployment.
+- [x] Run `npm run lint` and `npm run format:check` in both `backend` and `frontend`, then run the frontend production build.
+- [ ] **Student task:** Complete three real usability sessions and fill in [USABILITY_STUDY.md](./USABILITY_STUDY.md).
+- [ ] **Student task:** Add narration, upload the public video, and paste its URL above and in the course form.
+- [x] Confirm the README screenshot renders locally at `docs/images/shelflife-dashboard.png`.
+- [ ] **Student task:** Confirm the submission-form thumbnail works after uploading it to the course form.
+- [ ] **Student task:** Run Lighthouse or axe and record the final accessibility result.
+- [ ] **Student task:** Push the final iteration commit and verify that Render is serving that commit.
+
+## Final Iteration Evidence
+
+The final iteration improves the existing Project 3 workflow without changing its core purpose:
+
+- Keyboard support: skip navigation, visible focus, native controls, and keyboard-operable authentication tabs.
+- Screen-reader support: landmarks, active navigation state, form busy state, and live success/error feedback.
+- Usability feedback: create, update, delete, and shopping-toggle actions announce their result.
+- Visual refinement: consistent status colors, spacing, focus states, and responsive component layouts.
+
+The accessibility notes describe the manual verification path. The usability report must be completed from three real participant sessions; the repository intentionally does not invent participant results.
 
 ## Screenshots
 

@@ -8,6 +8,7 @@
   --text-dim: #bcc7b9;
   --muted: #7d947d;
   --accent: #f2c94c;
+  --accent-strong: #f2c94c;
   --accent-dark: #ffe590;
   --accent-soft: rgba(242, 201, 76, 0.1);
   --accent-glow: rgba(242, 201, 76, 0.18);
@@ -19,13 +20,18 @@
     linear-gradient(180deg, transparent 24%, rgba(0, 0, 0, 0.82)),
     linear-gradient(90deg, rgba(0, 0, 0, 0.28), transparent 45%);
   --warning: #f59e4b;
+  --warning-strong: #fbbf88;
   --warning-soft: rgba(245, 158, 75, 0.12);
   --good: #4ade80;
+  --good-strong: #6ee890;
   --good-soft: rgba(74, 222, 128, 0.1);
   --danger: #f87171;
+  --danger-strong: #f4a4a4;
   --danger-soft: rgba(248, 113, 113, 0.12);
   --info: #60c0e0;
+  --info-strong: #8bd4ef;
   --info-soft: rgba(96, 192, 224, 0.1);
+  --error-strong: #ffb88d;
   --line: #233026;
   --line-strong: #354a38;
   --radius: 10px;
@@ -55,6 +61,7 @@
   --text-dim: #334438;
   --muted: #6f806f;
   --accent: #c78b16;
+  --accent-strong: #8a5a00;
   --accent-dark: #9b6508;
   --accent-soft: rgba(199, 139, 22, 0.12);
   --accent-glow: rgba(199, 139, 22, 0.2);
@@ -66,13 +73,18 @@
     linear-gradient(180deg, transparent 22%, rgba(20, 26, 19, 0.76)),
     linear-gradient(90deg, rgba(20, 26, 19, 0.18), transparent 45%);
   --warning: #b66016;
+  --warning-strong: #8a4b08;
   --warning-soft: rgba(182, 96, 22, 0.12);
   --good: #1c7d42;
+  --good-strong: #1c7d42;
   --good-soft: rgba(28, 125, 66, 0.1);
   --danger: #b4232b;
+  --danger-strong: #a12a32;
   --danger-soft: rgba(180, 35, 43, 0.1);
   --info: #24799a;
+  --info-strong: #17657f;
   --info-soft: rgba(36, 121, 154, 0.1);
+  --error-strong: #9a3b0e;
   --line: #dfd5bf;
   --line-strong: #b8aa8f;
   --shadow-sm: 0 2px 8px rgba(63, 50, 25, 0.1);
@@ -115,6 +127,38 @@ input,
 select,
 textarea {
   font: inherit;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 100;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  color: #0f1410;
+  background: var(--accent);
+  font-weight: 800;
+  transform: translateY(-150%);
+  transition: transform var(--transition);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+#main-content:focus {
+  outline: 3px solid var(--accent-strong);
+  outline-offset: 4px;
 }
 button {
   min-height: 38px;
@@ -349,6 +393,9 @@ a {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .item-row {

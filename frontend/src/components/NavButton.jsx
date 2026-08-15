@@ -3,7 +3,12 @@ import './NavButton.css';
 
 export default function NavButton({ label, emoji, detail, active, onClick }) {
   return (
-    <button type="button" className={active ? 'nav-button active' : 'nav-button'} onClick={onClick}>
+    <button
+      type="button"
+      className={active ? 'nav-button active' : 'nav-button'}
+      onClick={onClick}
+      aria-current={active ? 'page' : undefined}
+    >
       {emoji ? (
         <span className="nav-emoji" aria-hidden="true">
           {emoji}

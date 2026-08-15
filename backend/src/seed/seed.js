@@ -224,4 +224,3 @@ if (isDirectRun) {
       await closeDb();
     });
 }
-
