@@ -109,9 +109,12 @@ export default function RecipesView() {
     }
   }
 
-  async function deleteRecipe(id) {
+  async function deleteRecipe(recipe) {
+    if (!window.confirm(`Delete ${recipe.title}? This can't be undone.`)) {
+      return;
+    }
     try {
-      await api.remove('recipes', id);
+      await api.remove('recipes', recipe._id);
       await load();
       setNotice('Recipe deleted.');
     } catch (err) {
@@ -175,6 +178,11 @@ export default function RecipesView() {
                     className="secondary-button"
                     onClick={() => addMissing(recipe)}
                     disabled={recipe.missingCount === 0}
+                    aria-label={
+                      recipe.missingCount === 0
+                        ? `${recipe.title} complete`
+                        : `Add missing ingredients for ${recipe.title}`
+                    }
                   >
                     {recipe.missingCount === 0 ? 'Complete' : 'Add missing'}
                   </button>
@@ -210,13 +218,15 @@ export default function RecipesView() {
                     type="button"
                     className="secondary-button"
                     onClick={() => editRecipe(recipe)}
+                    aria-label={`Edit ${recipe.title}`}
                   >
                     Edit
                   </button>
                   <button
                     type="button"
                     className="danger-button"
-                    onClick={() => deleteRecipe(recipe._id)}
+                    onClick={() => deleteRecipe(recipe)}
+                    aria-label={`Delete ${recipe.title}`}
                   >
                     Delete
                   </button>

@@ -86,9 +86,12 @@ export default function MealPlanView() {
     }
   }
 
-  async function deleteItem(id) {
+  async function deleteItem(item) {
+    if (!window.confirm(`Delete ${item.title}? This can't be undone.`)) {
+      return;
+    }
     try {
-      await api.remove('meal-plans', id);
+      await api.remove('meal-plans', item._id);
       await load();
       setNotice('Meal deleted.');
     } catch (err) {
@@ -139,13 +142,15 @@ export default function MealPlanView() {
                       type="button"
                       className="secondary-button"
                       onClick={() => editItem(item)}
+                      aria-label={`Edit ${item.title}`}
                     >
                       Edit
                     </button>
                     <button
                       type="button"
                       className="danger-button"
-                      onClick={() => deleteItem(item._id)}
+                      onClick={() => deleteItem(item)}
+                      aria-label={`Delete ${item.title}`}
                     >
                       Delete
                     </button>

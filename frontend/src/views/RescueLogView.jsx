@@ -90,9 +90,14 @@ export default function RescueLogView() {
     }
   }
 
-  async function deleteItem(id) {
+  async function deleteItem(item) {
+    if (
+      !window.confirm(`Delete this rescue log for ${item.pantryItemName}? This can't be undone.`)
+    ) {
+      return;
+    }
     try {
-      await api.remove('rescue-logs', id);
+      await api.remove('rescue-logs', item._id);
       await load();
       setNotice('Rescue log deleted.');
     } catch (err) {
@@ -150,13 +155,15 @@ export default function RescueLogView() {
                       type="button"
                       className="secondary-button"
                       onClick={() => editItem(item)}
+                      aria-label={`Edit rescue log for ${item.pantryItemName}`}
                     >
                       Edit
                     </button>
                     <button
                       type="button"
                       className="danger-button"
-                      onClick={() => deleteItem(item._id)}
+                      onClick={() => deleteItem(item)}
+                      aria-label={`Delete rescue log for ${item.pantryItemName}`}
                     >
                       Delete
                     </button>
