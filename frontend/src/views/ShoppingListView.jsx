@@ -98,9 +98,12 @@ export default function ShoppingListView() {
     }
   }
 
-  async function deleteItem(id) {
+  async function deleteItem(item) {
+    if (!window.confirm(`Delete ${item.name}? This can't be undone.`)) {
+      return;
+    }
     try {
-      await api.remove('shopping-list-items', id);
+      await api.remove('shopping-list-items', item._id);
       await load();
       setNotice('Shopping item deleted.');
     } catch (err) {
@@ -153,6 +156,7 @@ export default function ShoppingListView() {
                       type="button"
                       className={item.checked ? 'secondary-button' : 'primary-button'}
                       onClick={() => toggleItem(item)}
+                      aria-label={item.checked ? `Reopen ${item.name}` : `Mark ${item.name} bought`}
                     >
                       {item.checked ? '↩ Open' : '✓ Bought'}
                     </button>
@@ -160,13 +164,15 @@ export default function ShoppingListView() {
                       type="button"
                       className="secondary-button"
                       onClick={() => editItem(item)}
+                      aria-label={`Edit ${item.name}`}
                     >
                       Edit
                     </button>
                     <button
                       type="button"
                       className="danger-button"
-                      onClick={() => deleteItem(item._id)}
+                      onClick={() => deleteItem(item)}
+                      aria-label={`Delete ${item.name}`}
                     >
                       Delete
                     </button>

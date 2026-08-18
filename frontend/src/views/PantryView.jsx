@@ -125,9 +125,14 @@ export default function PantryView() {
     }
   }
 
-  async function deleteItem(id) {
+  async function deleteItem(item) {
+    // confirm first: this fired immediately with no undo, so a stray click or Enter
+    // key on a focused row could wipe an item with no way to get it back
+    if (!window.confirm(`Delete ${item.name}? This can't be undone.`)) {
+      return;
+    }
     try {
-      await api.remove('pantry-items', id);
+      await api.remove('pantry-items', item._id);
       await loadItems();
       setNotice('Ingredient deleted.');
     } catch (err) {
@@ -220,13 +225,15 @@ export default function PantryView() {
                       type="button"
                       className="secondary-button"
                       onClick={() => editItem(item)}
+                      aria-label={`Edit ${item.name}`}
                     >
                       Edit
                     </button>
                     <button
                       type="button"
                       className="danger-button"
-                      onClick={() => deleteItem(item._id)}
+                      onClick={() => deleteItem(item)}
+                      aria-label={`Delete ${item.name}`}
                     >
                       Delete
                     </button>

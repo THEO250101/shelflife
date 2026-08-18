@@ -374,7 +374,9 @@ a {
 }
 
 .danger-button {
-  color: #fecaca;
+  /* was a hardcoded light-mode-only pink (#fecaca) that nearly disappeared against
+     danger-soft in light theme; --danger-strong already flips per theme like StatusBadge does */
+  color: var(--danger-strong);
   background: var(--danger-soft);
   border-color: rgba(248, 113, 113, 0.2);
 }
